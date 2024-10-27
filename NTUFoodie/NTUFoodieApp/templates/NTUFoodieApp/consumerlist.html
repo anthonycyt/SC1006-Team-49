@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
+          integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .user-card {
+            display: flex;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        .user-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+        .user-details {
+            flex: 1;
+        }
+        .card-username {
+            font-weight: bold;
+            color: #181C62;
+            font-size: 1.5em;
+        }
+        .card-name, .card-email, .date-joined {
+            color: #333;
+            font-size: 1em;
+            margin-top: 5px;
+        }
+        .date-joined {
+            color: #888;
+            font-size: 0.85em;
+        }
+        .ban-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: red;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+        }
+        .ban-button:hover {
+            color: darkred;
+        }
+        .ban-button i {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-4">
+    <div class="back-button mb-3"> 
+        <a href="#" onclick="window.location.href='{% url 'aHome' %}'" class="btn btn-link">
+          <i class="fas fa-arrow-left"></i> Back
+        </a>
+    </div>
+
+    <h2 class="my-3" style="color: #181C62;">User List</h2>
+
+    {% for user in users %}
+    <div class="user-card">
+        <!-- Profile Picture -->
+        <img src="{{ user.consumer.profilePic.url }}" alt="Profile Picture" class="profile-pic">
+        
+        <!-- User Details -->
+        <div class="user-details">
+            <h5 class="card-username">Username: {{ user.username }}</h5>
+            <p class="card-name">Name: {{ user.consumer.firstName }} {{ user.consumer.lastName }}</p>
+            <p class="card-email">Email: {{ user.consumer.email }}</p>
+            <p class="date-joined">Joined on: {{ user.consumer.dateCreated|date:"F j, Y, g:i a" }}</p>
+            {% if user.id in banned_user_ids %}
+                <p class="text-danger">This user is banned.</p>
+            {% endif %}
+        </div>
+
+        <!-- Ban button triggers the modal -->
+        {% if user.id not in bannedUserIds %}
+        <button type="button" class="ban-button" data-toggle="modal" data-target="#banModal" data-ban-url="{% url 'banUser' user.id %}" title="Ban User">
+            <i class="fas fa-ban"></i>
+        </button>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Ban Confirmation Modal -->
+<div class="modal fade" id="banModal" tabindex="-1" aria-labelledby="banModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="banModalLabel">Confirm Ban</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to ban this user?
+      </div>
+      <div class="modal-footer">
+        <form method="POST" action="" id="banForm">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Ban</button>
+        </form>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+  // Handle ban button click and pass user id to the modal
+  $('#banModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var banUrl = button.data('ban-url');
+    var modal = $(this);
+    modal.find('#banForm').attr('action', banUrl);
+  });
+</script>
+
+</body>
+</html>

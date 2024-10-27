@@ -1,0 +1,226 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #181C62;
+            --accent-color: #FF5A5F;
+            --success-color: #28a745;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            margin-top: 5%;
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            background-color: white;
+            border: none;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-body {
+            text-align: center;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .btn-custom {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 30px;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: var(--accent-color);
+        }
+
+        .dashboard-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            text-decoration: none;
+        }
+
+        .dashboard-link:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #181C62;
+            color: white;
+        }
+
+        .footer span {
+            color: #ccc;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .btn-logout {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-logout:hover {
+            background-color: #FF3A3F;
+        }
+
+        .notification-badge {
+            position: relative;
+            top: -10px;
+            right: -10px;
+            font-size: 0.75rem;
+            padding: 0.3em 0.6em;
+            border-radius: 50%;
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .welcome-message {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="welcome-message">
+        Welcome, {{ user.username }}!
+    </div>
+
+    <div class="container">
+        <div class="dashboard-header">
+            <a href="/admin/dashboard" class="dashboard-link">
+                <i class="fas fa-arrow-left"></i> To Dashboard
+            </a>
+            <a href="{% url 'logout' %}" class="btn-logout">
+                Logout
+            </a>
+        </div>
+
+        <!-- Card for Notifications with Badge for Unread Count -->
+        <div class="card">
+            <div class="card-body position-relative">
+                <img src="{% static '/images/bell.png' %}" alt="Notifications" class="card-icon">
+                <h5 class="card-title">Notifications</h5>
+                <a href="{% url 'aNotification' user.id %}" class="btn btn-custom" id="view-notifications-btn">
+                    View Notifications
+                    {% if unreadCount > 0 %}
+                      <span class="badge badge-danger notification-badge">{{ unreadCount }}</span>
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+
+        <!-- Card for Process Reviews with Badge for Unprocessed Flagged Reviews -->
+        <div class="card">
+            <div class="card-body position-relative">
+                <img src="{% static '/images/processing.png' %}" alt="Process Reviews" class="card-icon">
+                <h5 class="card-title">Process Reviews</h5>
+                <a href="/admin/flaggedReview" class="btn btn-custom" id="view-reviews-btn">
+                    Process Reviews
+                    {% if unprocessedFlaggedReviewsCount > 0 %}
+                      <span class="badge badge-danger notification-badge">{{ unprocessedFlaggedReviewsCount }}</span>
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+
+        <!-- Card for Ban User -->
+        <div class="card">
+            <div class="card-body">
+                <img src="{% static '/images/banned.jpeg' %}" alt="Ban User" class="card-icon">
+                <h5 class="card-title">Ban User</h5>
+                <a href="/admin/consumerList" class="btn btn-custom">Manage Bans</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer mt-5 py-3 bg-dark text-light">
+        <div class="container text-center">
+            <span class="small">&copy; 2024 NTUFOODIE. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+      // Trigger notifications as viewed when 'View Notifications' button is clicked
+      $('#view-notifications-btn').on('click', function (event) {
+        event.preventDefault();
+        $.ajax({
+          url: "{% url 'markNotifications' user.id %}",
+          type: 'GET',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': '{{ csrf_token }}'
+          },
+          success: function (data) {
+            if (data.status === 'success') {
+              window.location.href = "{% url 'aNotification' user.id %}";
+            } else {
+              alert('Error: Unable to mark notifications as viewed.');
+            }
+          },
+          error: function () {
+            alert('Error: Unable to process the request.');
+          }
+        });
+      });
+
+      // Trigger process reviews logic (if needed) when 'View Reviews' button is clicked
+      $('#view-reviews-btn').on('click', function (event) {
+        // You can implement similar AJAX or any other functionality here as needed
+      });
+    </script>
+
+</body>
+
+</html>

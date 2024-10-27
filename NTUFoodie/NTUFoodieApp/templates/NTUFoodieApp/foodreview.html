@@ -1,0 +1,248 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Reviews</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background-color: #f8f9fa; 
+    }
+    /* Review Card Styles */
+    .review-card {
+      width: 100%;
+      padding: 15px;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .profile-pic-container {
+      width: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-right: 20px;
+    }
+    .profile-pic-container img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #181C62;
+      margin-bottom: 10px;
+    }
+    .profile-info {
+      text-align: center;
+    }
+    .profile-info p {
+      margin: 0;
+      font-weight: bold;
+      font-size: 0.9em;
+    }
+    .profile-info .rating {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.8em;
+    }
+    .review-text {
+      flex: 2;
+      text-align: left;
+    }
+    .review-label {
+      font-weight: bold;
+      color: #181C62;
+      margin-bottom: 5px;
+      font-size: 1.1em;
+    }
+    .review-description {
+      background-color: #f0f0f0;
+      padding: 10px;
+      border-radius: 5px;
+      color: #333;
+    }
+    .review-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .review-image img {
+      max-width: 100%;
+      max-height: 150px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    /* Styles for the flag icon */
+    .flag-icon {
+      cursor: pointer;
+      color: grey; /* Default color */
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5rem;
+    }
+    .flagged {
+      color: red; /* Flagged color */
+    }
+    .flag-icon.disabled {
+      pointer-events: none;
+    }
+    /* Styles for success/error messages */
+    .alert {
+      margin-top: 20px;
+    }
+    /* Additional Styles */
+    .back-button a:hover {
+      text-decoration: none;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+    <div class="container mt-4">
+        <div class="back-button mb-3"> 
+          <a href="{% url 'foodDetail' food.id %}" class="btn btn-link">
+            <i class="fas fa-arrow-left"></i> Back
+          </a>
+        </div>
+      
+        <h2 class="my-3" style="color: #181C62;">All Reviews for {{ food.foodName }}</h2>
+      
+        <div class="container">
+            {% if messages %}
+              <div class="mt-3">
+                {% for message in messages %}
+                  {% if message.tags == 'error' %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  {% else %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                  {% endif %}
+                      {{ message }}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+          
+        <!-- Reviews Section -->
+        {% if allReviews %}
+          {% for review in allReviews %}
+            <div class="review-card">
+              <div class="profile-pic-container">
+                {% if review.user.consumer.profilePic %}
+                  <img src="{{ review.user.consumer.profilePic.url }}" alt="User Image">
+                {% else %}
+                  <img src="{% static 'images/default_profile_pic.jpg' %}" alt="Default Profile Picture">
+                {% endif %}
+                <div class="profile-info">
+                  <p>{{ review.user.consumer.firstName }} {{ review.user.consumer.lastName }}</p>
+                  <div class="rating">
+                    <span>{{ review.rating|floatformat:1 }}</span> <i class="fas fa-star text-warning"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="review-text">
+                <div class="review-label">Review</div>
+                <div class="review-description">
+                  <p>{{ review.description }}</p>
+                </div>
+              </div>
+              <div class="review-image">
+                {% if review.image %}
+                  <img src="{{ review.image.url }}" alt="Review Image">
+                {% else %}
+                  <img src="{% static 'images/NTUFOODIELogo.png' %}" alt="Default Image">
+                {% endif %}
+              </div>
+              <!-- Flag icon logic -->
+              {% if user.is_authenticated %}
+                {% if review.id in flaggedReviews %}
+                  <!-- If the review is flagged by the user, show red flag -->
+                  <i class="fas fa-flag flag-icon flagged disabled" data-review-id="{{ review.id }}"></i>
+                {% elif review.user == user %}
+                  <!-- Do not show flag for user's own review -->
+                {% else %}
+                  <!-- Show regular flag for other reviews -->
+                  <i class="fas fa-flag flag-icon" data-review-id="{{ review.id }}" data-toggle="modal" data-target="#flagModal"></i>
+                {% endif %}
+              {% endif %}
+            </div>
+          {% endfor %}
+        {% else %}
+          <p>No reviews available.</p>
+        {% endif %}
+      
+      </div>
+      
+      <!-- Flagging Modal -->
+      <div class="modal fade" id="flagModal" tabindex="-1" role="dialog" aria-labelledby="flagModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="flagModalLabel">Flag Review</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form method="POST" action="" id="flagForm">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="reason">Why are you flagging this review?</label>
+                  <textarea class="form-control" id="reason" name="reason" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-danger">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      
+      <script>
+        let reviewIdToFlag;
+
+        // When the flag icon is clicked
+        $('.flag-icon').click(function() {
+          const isFlaggedByUser = $(this).hasClass('flagged');
+          reviewIdToFlag = $(this).attr('data-review-id');
+    
+          if (!isFlaggedByUser) {
+            // Set the correct action URL for the form
+            const formAction = "{% url 'flagReview' 'REVIEW_ID_PLACEHOLDER' %}".replace('REVIEW_ID_PLACEHOLDER', reviewIdToFlag);
+            $('#flagForm').attr('action', formAction);
+    
+            // Show modal to ask for reason if not flagged by the user
+            $('#flagModal').modal('show');
+          }
+        });
+    
+        // Timeout after 2 seconds when the page contains success messages
+        $(document).ready(function() {
+          if ($('.alert-success').length > 0) {
+            setTimeout(function() {
+              location.reload();
+            }, 2000);
+          }
+        });
+      </script>
+      
+      </body>
+      </html>

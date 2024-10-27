@@ -1,0 +1,279 @@
+{% extends "NTUFoodieApp/ccommon.html" %}
+{% load static %}
+{% block content %}
+<style>
+  /* General Styles */
+  .container {
+    margin-top: 40px;
+  }
+
+  .section-header {
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #181C62;
+    font-size: 1.5em;
+  }
+
+  /* General Card Styling */
+  .card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    background-color: #fff;
+    transition: transform 0.3s;
+  }
+
+  .card:hover {
+    transform: scale(1.02);
+  }
+
+  .card img {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .card-body {
+    padding: 15px;
+  }
+
+  .card-title {
+    font-weight: bold;
+    color: #181C62;
+    margin-bottom: 10px;
+  }
+
+  .card-text {
+    color: #333;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+  }
+
+  .discounted-price {
+    color: red;
+    font-weight: bold;
+  }
+
+  .original-price {
+    text-decoration: line-through;
+    color: #888;
+  }
+
+  .rating {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .rating i {
+    color: #FFD700;
+    margin-right: 5px;
+  }
+
+  /* Carousel Styling for Latest Reviews */
+  .review-card {
+    width: 95%; 
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #fff; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;  
+    align-items: center;
+    transition: box-shadow 0.3s ease-in-out;
+    position: relative;
+    border: 2px solid #181C62;
+    margin: 10px;
+  }
+
+  .review-card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .profile-pic-container { 
+    width: 100px; 
+    display: flex;  
+    flex-direction: column;  
+    align-items: center;  
+    margin-right: 20px;  
+  }
+
+  .profile-pic-container img { 
+    width: 80px; 
+    height: 80px; 
+    object-fit: cover; 
+    border-radius: 50%; 
+    border: 3px solid #181C62; 
+    margin-bottom: 10px;
+  }
+
+  .review-image img {
+    max-width: 100%;  
+    max-height: 200px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .review-text {
+    flex: 1;
+    text-align: left;
+    padding-left: 20px;
+  }
+
+  .review-label {
+    font-weight: bold;
+    color: #181C62;
+    margin-bottom: 5px;
+    font-size: 1.2em;
+  }
+
+  .review-description {
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 8px;
+    color: #333;
+    border: 1px solid #ddd;
+    font-size: 0.9em;
+  }
+
+  /* Custom chevron styling */
+  .carousel-control-prev, .carousel-control-next {
+    width: 5%; 
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    top: 50%;  
+    transform: translateY(-50%); 
+    position: absolute;
+    z-index: 10;
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    display: none; /* Hide default Bootstrap arrows */
+  }
+
+  .carousel-control-prev i,
+  .carousel-control-next i {
+    font-size: 2.5em;
+    color: #181C62;
+  }
+
+  .carousel-control-prev i:hover,
+  .carousel-control-next i:hover {
+    color: #000;
+  }
+
+  .no-reviews-message {
+    color: #888;
+    font-style: italic;
+    padding: 10px 0;
+  }
+
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  integrity="anonymous" />
+
+<div class="container">
+  <!-- Latest Reviews Section -->
+  <div class="section-header">Latest Reviews</div>
+  {% if recentReviews %}
+  <div id="latestReviewsCarousel" class="carousel slide mb-4" data-ride="carousel" data-interval="2000">
+    <div class="carousel-inner">
+      {% for review in recentReviews %}  
+      <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
+        <div class="review-card">
+          <div class="profile-pic-container"> 
+            <img src="{{ review.user.consumer.profilePic.url }}" alt="User Image">
+            <div class="profile-info">
+              <p>{{ review.user.consumer.firstName }} {{ review.user.consumer.lastName }}</p> 
+              <div class="rating"> 
+                <span>{{ review.rating }}</span> <i class="fas fa-star text-warning"></i> 
+              </div>
+            </div>
+          </div>
+          <div class="review-text"> 
+            <div class="review-label">Review</div>
+            <div class="review-description">
+              <p>What they had: {{ review.food.foodName }}</p>
+              <p>Price: 
+                {% if review.food.isDiscounted and review.food.discountRate %}
+                  <span class="original-price">SGD {{ review.food.price|floatformat:2  }}</span>
+                  <span class="discounted-price">SGD {{ review.food.discountedPrice|floatformat:2  }}</span>
+                {% else %}
+                  SGD {{ review.food.price|floatformat:2  }}
+                {% endif %}
+              </p>
+              <p>Stall: {{ review.food.store.storeName }}</p>
+              <p>Located at: {{ review.food.store.canteen.canteenName }}</p>
+              <p>Description: {{ review.description|truncatechars:100 }}</p>
+            </div>
+          </div>
+          <div class="review-image">
+            {% if review.image %}
+              <img src="{{ review.image.url }}" alt="Review Image">
+            {% else %}
+              <img src="{{ review.food.image.url }}" alt="Food Image">
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <a class="carousel-control-prev" href="#latestReviewsCarousel" role="button" data-slide="prev">
+      <i class="fas fa-chevron-left"></i>
+    </a>
+    <a class="carousel-control-next" href="#latestReviewsCarousel" role="button" data-slide="next">
+      <i class="fas fa-chevron-right"></i>
+    </a>
+
+    <ol class="carousel-indicators">
+      {% for review in recentReviews %}
+        <li data-target="#latestReviewsCarousel" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+      {% endfor %}
+    </ol>
+  </div>
+  {% else %}
+  <p class="no-reviews-message">There are no recent reviews.</p>
+  {% endif %}
+
+  <!-- Discounted Food Listings Section -->
+  <div class="section-header mt-4">Discounted Food</div>
+  <div class="row">
+    {% for food in discountedFoods %}
+    <div class="col-md-4">
+      <a href="{% url 'foodDetail' food.id %}" style="text-decoration: none; color: inherit;">
+        <div class="card">
+          {% if food.image %}
+          <img src="{{ food.image.url }}" alt="{{ food.foodName }}" class="card-img-top">
+          {% else %}
+          <img src="{% static 'images/comingsoon.jpg'%}" class="card-img-top" alt="Food Image">
+          {%endif%}
+          <div class="card-body">
+            <h5 class="card-title">{{ food.foodName }}</h5>
+            <div class="rating">
+              <i class="fas fa-star"></i> {{ food.rating|floatformat:1 }}
+            </div>
+            <p class="card-text">
+              <strong>Type:</strong> {{ food.type }}<br>
+              <strong>Cuisine:</strong> {{ food.cuisine }}<br>
+              <strong>Price:</strong> 
+              {% if food.isDiscounted %}
+                <span class="original-price">SGD {{ food.price|floatformat:2  }}</span>
+                <span class="discounted-price">SGD {{ food.discountedPrice|floatformat:2  }}</span>
+              {% else %}
+                SGD {{ food.price|floatformat:2  }}
+              {% endif %}<br>
+              <strong>Description:</strong> {{ food.description|truncatechars:100 }}
+            </p>
+          </div>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

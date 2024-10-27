@@ -1,0 +1,155 @@
+{% load static %} <!-- let django knows how to reference static files -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NTUFoodie</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .hero {
+            background-color: #181C62; /* NTU Blue */
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        .btn-primary {
+            background-color: #D71440; /* NTU Red */
+            border-color: #D71440;
+        }
+        .btn-primary:hover {
+            background-color: #c0113b;
+            border-color: #c0113b;
+        }
+        .features {
+            padding: 50px 0;
+        }
+        .feature-icon {
+            font-size: 3rem;
+            color: #D71440;
+            margin-bottom: 20px;
+        }
+        .testimonials {
+            background-color: #f8f9fa;
+            padding: 50px 0;
+        }
+        .testimonial {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #fff;
+            margin-bottom: 20px;
+            position: relative; /* Add this for positioning the pseudo-element */
+        }
+        .testimonial p {
+            margin-bottom: 0; /* Remove default paragraph margin */
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #181C62;">
+        <div class="container">
+          <a href="{% url 'defaultHome' %}"> 
+            <img src="{% static '/images/NTUFOODIElogo.png' %}" width="150px" height="150px">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto"> 
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a> 
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'register' %}">Register</a> 
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    <div class="hero">
+        <div class="container">
+            <h1>NTUFoodie</h1>
+            <p>Your guide to the best food on NTU campus.</p>
+            <a href="{% url 'register' %}" class="btn btn-primary btn-lg">Start Exploring</a>
+        </div>
+    </div>
+
+    <div class="features">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <i class="fas fa-search feature-icon"></i>
+                    <h3>Search for Food</h3>
+                    <p>Find your favorite dishes or discover new ones.</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="fas fa-map-marker-alt feature-icon"></i>
+                    <h3>Locate Food Stalls</h3>
+                    <p>See where the food stalls are located on campus.</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="fas fa-star feature-icon"></i>
+                    <h3>Rate and Review</h3>
+                    <p>Share your experiences and help others find great food.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="testimonials">
+        <div class="container">
+          <h2 class="text-center mb-4">What Students Are Saying</h2>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="testimonial">
+                <p>"NTUFoodie has made finding good food on campus so much easier! I love the reviews and ratings."</p>
+                <p class="text-right"><strong>- John Doe</strong></p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="testimonial">
+                <p>"I always use NTUFoodie to find new places to eat. It's great for exploring different cuisines."</p>
+                <p class="text-right"><strong>- Jane Smith</strong></p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="testimonial">
+                <p>"The map feature is super helpful! I can easily find the stalls I'm looking for."</p>
+                <p class="text-right"><strong>- David Lee</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="cta">
+        <div class="container">
+          <h2>Hungry?</h2>
+          <p>Find the perfect meal on NTU campus.</p>
+          <a href="{% url 'register' %}" class="btn btn-primary btn-lg">Explore Now</a>
+        </div>
+      </div>
+    
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>   
+    
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>
