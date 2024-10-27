@@ -139,7 +139,7 @@
           <img src="{% static 'images/comingsoon.jpg' %}" class="food-image" alt="Default Food Image">
           {% endif %}
 
-          <div class="store-details">{{ food.store.storeName }} @ {{ food.store.canteen.canteenName }}</div>
+          <div class="store-details">{{ food.store.storeName }} @ {{ food.store.canteen.location.canteenName }}</div>
           <div class="food-name">{{ food.foodName }}</div>
           <div class="food-rating">
             {% if food.rating %}

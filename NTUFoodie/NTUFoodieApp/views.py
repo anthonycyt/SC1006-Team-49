@@ -93,7 +93,7 @@ def searchFood(request):
         
         filtered_foods = foods.filter(
             Q(foodName__icontains=searchKey) | 
-            Q(store__canteen__canteenName__icontains=searchKey)  
+            Q(store__canteen__location__canteenName__icontains=searchKey)  
         )
         
     context = {'filteredFood' : filtered_foods}
@@ -361,7 +361,7 @@ def markNotifications(request, pk_id):
 def storeownerHome(request):
     user = request.user
     types = ["Halal", "Non-Halal", "Vegetarian", "Vegan", "Fastfood"]
-    cuisines = ["Chinese", "Western", "Indian", "Fusion"]
+    cuisines = ["Chinese", "Western", "Indian", "Fusion", "Korean"]
     
     if hasattr(user, 'storeowner'):
         storeOwner = user.storeowner
@@ -399,7 +399,7 @@ def storeownerHome(request):
 def listingDetail(request, pk_id):
     food = get_object_or_404(Food, id=pk_id)
     types = ["Halal", "Non-Halal", "Vegetarian", "Vegan", "Fastfood"]
-    cuisines = ["Chinese", "Western", "Indian", "Fusion"]
+    cuisines = ["Chinese", "Western", "Indian", "Fusion", "Korean"]
 
     form = FoodForm(instance=food)
     
