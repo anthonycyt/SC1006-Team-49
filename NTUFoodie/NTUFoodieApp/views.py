@@ -63,8 +63,8 @@ def food(request):
     user = request.user
     user_id = user.id
     foods = Food.objects.all()
-    types = Food.objects.values_list('type', flat=True).distinct()
-    cuisines = Food.objects.values_list('cuisine', flat=True).distinct()
+    types = ["Halal", "Non-Halal", "Vegetarian", "Vegan", "Fastfood"]
+    cuisines = ["Chinese", "Western", "Indian", "Fusion", "Korean"]
 
     context = {'user_id': user_id, 'foods': foods, 'types' : types, 'cuisines' : cuisines, **notificationsData}
     return render(request, "NTUFoodieApp/food.html", context)

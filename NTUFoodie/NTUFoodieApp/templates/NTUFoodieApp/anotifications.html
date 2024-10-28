@@ -89,6 +89,7 @@
       {% endif %}
     </div>
 
+    {% if notifications %}
     {% for notification in notifications %}
     <div class="notification-card">
         <h5 class="card-title">{{ notification.title }}</h5>
@@ -101,6 +102,11 @@
         </button>
     </div>
     {% endfor %}
+    {% else %}
+    <div>
+      <h5> No notifications </h5>
+    </div>
+    {%endif%}
 </div>
 
 <!-- Delete Confirmation Modal -->

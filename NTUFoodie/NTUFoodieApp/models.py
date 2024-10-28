@@ -76,11 +76,10 @@ class Food(models.Model):
     isDiscounted = models.BooleanField(default=False)
     discountRate = models.IntegerField(null = True, blank = True)
     discountedPrice = models.FloatField(null = True, blank = True)
-
     dateCreated = models.DateTimeField(auto_now_add=True, null = True)
     
     def __str__(self):
-        return self.foodName + " from " + self.store.storeName + " @ " + self.store.canteen.canteenName
+        return self.foodName + " from " + self.store.storeName + " @ " + self.store.canteen.location.canteenName
     
     def save(self, *args, **kwargs):
         if self.isDiscounted and self.discountRate:
