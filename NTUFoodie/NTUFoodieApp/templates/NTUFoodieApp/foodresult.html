@@ -64,10 +64,10 @@
                     <br>
                     <!-- Conditional Price Display -->
                     {% if food.isDiscounted and food.discountedPrice %}
-                        <span class="price-original">SGD {{ food.price }}</span>
-                        <span class="price-discounted" style="color: red; font-weight: bold;">SGD {{ food.discountedPrice }}</span>
+                        <span class="price-original">SGD {{ food.price|floatformat:2 }}</span>
+                        <span class="price-discounted" style="color: red; font-weight: bold;">SGD {{ food.discountedPrice|floatformat:2 }}</span>
                     {% else %}
-                        SGD {{ food.price }}
+                        SGD {{ food.price|floatformat:2 }}
                     {% endif %}
                     <br> {{ food.description }}
                 </td>
