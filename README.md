@@ -25,10 +25,9 @@ Welcome to the official repository for NTUFoodie made for our SC2006 Project (Te
 ## How to Run
 
 ## Design Principles
+
   
 ## External API(s) Used
-
-## Conclusion
 
 ## Reference
 
