@@ -2,10 +2,10 @@
 
 ## About
 
-NTUFoodie is a student focused initiative, especially towards university students, that helps student find the most cost-efficient meals through reviews made by others as a guide. It not only reduces food waste but also ensures that nutritious meals are made available
-to every university student without br.
+NTUFoodie is a student-centered initiative aimed at helping university students to discover cost-efficient meals through reviews made by others as a guide. This web based application not only minimizes food waste but also ensures that nutritious meals are made available
+to every university student without breaking the bank! As we ourselves are students we understand deeply how hard it is to be able to find budget meals in order to save money, hence NTUFoodie was built from a genuine desire to support our fellow students in saving money!
 
-This project applied software engineering best practices and design patterns to ensure high reliability, performance, and extensibility for future enhancements.
+This project applied software engineering best practices and design patterns in order to ensure high reliability, performance, and extensibility for future enhancements.
 
 
 ## Contributors 
