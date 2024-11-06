@@ -64,6 +64,10 @@ The frontend mainly consists of each interface dedicated to a specific type of u
 <strong>Supporting Directories and Assets: </strong>
 <code>/images</code> contains all images used throughout NTUFoodie, enhancing the visual appeal of each page. Images are carefully selected to make the app engaging and user-friendly. Some HTML files include inline JavaScript using <code><script></code> tags to enhance user interaction and their overall experience witht he web-app.
 
+### Backend
+
+### Design Patterns
+
   
 ## External API(s) Used
 - Mapbox APIS
