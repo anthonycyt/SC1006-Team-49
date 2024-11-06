@@ -61,7 +61,7 @@ The frontend mainly consists of each interface dedicated to a specific type of u
 
 - StoreOwnerUI: For users managing food listings, this interface includes options to create, update, and manage food listings. Store owners can easily keep their listings up-to-date and highlight any discounts or deals available.
 
-####Supporting Directories and Assets:
+<strong>Supporting Directories and Assets: </strong>
 </images> contains all images used throughout NTUFoodie, enhancing the visual appeal of each page. Images are carefully selected to make the app engaging and user-friendly.
 
 Some HTML files include inline JavaScript using <script> tags to enhance user interaction. These scripts support dynamic content loading, responsive navigation, and smooth map interactions powered by Mapbox, ensuring a seamless user experience.
