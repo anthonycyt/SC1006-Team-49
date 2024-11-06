@@ -23,10 +23,7 @@ Welcome to the official repository for NTUFoodie made for our SC2006 Project (Te
 ## Content
 
 ## How to Run
-   `py -m pip install Django `  
-   
    `cd NTUFoodie `    
-
    `python manage.py runserver`  
    
 
