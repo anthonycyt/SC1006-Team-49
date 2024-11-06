@@ -3,6 +3,7 @@
 ## About
 
 Welcome to the official repository for NTUFoodie made for our SC2006 Project (Team 49)! 
+
 <br />
 <div align="center">
     <img width="679" alt="NTUFoodie Page" src="https://github.com/user-attachments/assets/7fe27f90-dc8b-48ba-9e06-a66dd9f104e4">
