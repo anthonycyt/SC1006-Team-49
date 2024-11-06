@@ -53,7 +53,7 @@ vid
 
 ## App Design
 ### Fronted
-The frontend mainly consists of each interface dedicated to a specific type of user, designed with distinct functionalities following our class diagrams. You will find more detailed design documents for each interface in the <template/NTUFoodieApp> directory.
+The frontend mainly consists of each interface dedicated to a specific type of user, designed with distinct functionalities following our class diagrams. You will find more detailed design documents for each interface in the <code>template/NTUFoodieApp</code> directory.
 
 - AdminUI: This interface is designed for administrators to manage NTUFoodie’s content, including user management, food listing approvals, and report moderation.
 
@@ -61,7 +61,7 @@ The frontend mainly consists of each interface dedicated to a specific type of u
 
 - StoreOwnerUI: For users managing food listings, this interface includes options to create, update, and manage food listings. Store owners can easily keep their listings up-to-date and highlight any discounts or deals available.
 
-#####Supporting Directories and Assets:
+####Supporting Directories and Assets:
 </images> contains all images used throughout NTUFoodie, enhancing the visual appeal of each page. Images are carefully selected to make the app engaging and user-friendly.
 
 Some HTML files include inline JavaScript using <script> tags to enhance user interaction. These scripts support dynamic content loading, responsive navigation, and smooth map interactions powered by Mapbox, ensuring a seamless user experience.
