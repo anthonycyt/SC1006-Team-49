@@ -23,16 +23,19 @@ Welcome to the official repository for NTUFoodie made for our SC2006 Project (Te
 ## Content
 
 ## How to Run
-> 
+`npm install py -m pip install Django`
+`cd NTUFoodie`
+`python manage.py runserver`
+
 
 ## Design Principles
 
   
 ## External API(s) Used
 - Mapbox APIS
-   > Geocoding
-   > Get Directions
-   > Live location
+  -> Geocoding
+  -> Get Directions
+  -> Live location
 
 ## Reference
 
