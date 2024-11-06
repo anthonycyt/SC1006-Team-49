@@ -23,12 +23,12 @@ Welcome to the official repository for NTUFoodie made for our SC2006 Project (Te
 ## Content
 
 ## How to Run
-   ```bash
-   py -m pip install Django ```
-   ```bash
-   cd NTUFoodie ```
-   ```bash
-   python manage.py runserver```
+   `py -m pip install Django `  
+   
+   `cd NTUFoodie `    
+
+   `python manage.py runserver`  
+   
 
 ## Design Principles
 
