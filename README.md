@@ -28,10 +28,10 @@ This project applied software engineering best practices and design patterns in 
 <summary>Demo Video</summary>
     <br />
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=qMXj91_hbos
-" target="_blank"><img src="http://img.youtube.com/vi/qMXj91_hbos/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
-![SC2006 Demo Video on YouTube](https://img.youtube.com/vi/qMXj91_hbos/0.jpg)]
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=qMXj91_hbos" target="_blank">
+    <img src="http://img.youtube.com/vi/qMXj91_hbos/0.jpg" alt="2006 DEMO VIDEO" style="width: 100%; max-width: 480px; height: auto; border-radius: 10px;" />
+</a>
+
     <br />
 </details>
 
