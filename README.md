@@ -36,7 +36,7 @@ This project applied software engineering best practices and design patterns in 
 </details>
 
 <details>
-<summary></summary><strong>Diagrams<strong></summary>
+<summary><strong>Diagrams</summary>
 <br>
 vid
 </details>
