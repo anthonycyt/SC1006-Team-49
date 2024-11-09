@@ -26,8 +26,10 @@ This project applied software engineering best practices and design patterns in 
 
 <details>
 <summary>Demo Video</summary>
+    <br />
     
-![Watch the SC2006 Demo Video on YouTube](https://img.youtube.com/vi/qMXj91_hbos/0.jpg)](https://www.youtube.com/watch?v=qMXj91_hbos)
+![SC2006 Demo Video on YouTube](https://img.youtube.com/vi/qMXj91_hbos/0.jpg)]
+    <br />
 </details>
 
 <details>
