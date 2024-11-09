@@ -26,9 +26,10 @@ This project applied software engineering best practices and design patterns in 
 
 <details>
 <summary>Demo Video</summary>
-<br>
+<br />
 ![Blue World Diabetes Day Instagram Post]([https://github.com/mahopon/sc1015-miniprj/assets/162700690/4a33a258-aa95-4a53-8942-a0d743e1b01b](https://github.com/user-attachments/assets/7fe27f90-dc8b-48ba-9e06-a66dd9f104e4))
 ![Watch the SC2006 Demo Video on YouTube](https://img.youtube.com/vi/qMXj91_hbos/0.jpg)](https://www.youtube.com/watch?v=qMXj91_hbos)
+<br />
 </details>
 
 <details>
