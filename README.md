@@ -23,6 +23,8 @@ This project applied software engineering best practices and design patterns in 
 - @uwubrain 
 - @erinarin034
 
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/qMXj91_hbos/0.jpg)](http://www.youtube.com/watch?v=qMXj91_hbos)
+
 ## Table of Content
 
 <details>
