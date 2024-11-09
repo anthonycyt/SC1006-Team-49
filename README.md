@@ -22,15 +22,15 @@ This project applied software engineering best practices and design patterns in 
 - @wiz
 - @uwubrain 
 - @erinarin034
-
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/qMXj91_hbos/0.jpg)](http://www.youtube.com/watch?v=qMXj91_hbos)
-
 ## Table of Content
 
 <details>
 <summary>Demo Video</summary>
 <br>
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/qMXj91_hbos/0.jpg)](http://www.youtube.com/watch?v=qMXj91_hbos)
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/qMXj91_hbos" 
+  title="YouTube video player" frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+  allowfullscreen></iframe>
 </details>
 
 <details>
