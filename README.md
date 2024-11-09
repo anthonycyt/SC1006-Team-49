@@ -25,7 +25,7 @@ This project applied software engineering best practices and design patterns in 
 ## Table of Content
 
 <details>
-<summary><strong>Demo Video</strong>strong</summary>
+<summary><strong>Demo Video</summary>
     <br />
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=qMXj91_hbos" target="_blank">
@@ -36,13 +36,13 @@ This project applied software engineering best practices and design patterns in 
 </details>
 
 <details>
-<summary></summary><strong>Diagrams<strong></strong>strong></summary>
+<summary></summary><strong>Diagrams<strong></summary>
 <br>
 vid
 </details>
 
 <details>
-<summary><strong>Supporting Documents</strong>strong></summary>
+<summary><strong>Supporting Documents</summary>
 <br>
 vid
 </details>
