@@ -28,7 +28,7 @@ This project applied software engineering best practices and design patterns in 
 <details>
 <summary>Demo Video</summary>
 <br>
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/qMXj91_hbos/0.jpg)](https://www.youtube.com/watch?v=qMXj91_hbos)
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/qMXj91_hbos/0.jpg)](http://www.youtube.com/watch?v=qMXj91_hbos)
 </details>
 
 <details>
