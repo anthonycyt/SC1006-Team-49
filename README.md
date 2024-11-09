@@ -34,7 +34,6 @@ This project applied software engineering best practices and design patterns in 
     </div>
 </a>
 
-    <br />
 </details>
 
 <details>
