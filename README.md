@@ -26,12 +26,8 @@ This project applied software engineering best practices and design patterns in 
 
 <details>
 <summary><strong>Demo Video</summary>
-    <br />
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=qMXj91_hbos" target="_blank">
-    <img src="http://img.youtube.com/vi/qMXj91_hbos/0.jpg" alt="2006 DEMO VIDEO" />
-</a>
-
+https://github.com/user-attachments/assets/2c262736-b806-4fea-b276-805098b2d2d5
 
 </details>
 
