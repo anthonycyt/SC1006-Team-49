@@ -25,7 +25,7 @@ This project applied software engineering best practices and design patterns in 
 ## Table of Content
 
 <details>
-<summary><strong>Demo Video</summary>
+<summary>Demo Video</summary>
 <br>
 Youtube link: https://www.youtube.com/watch?v=qMXj91_hbos
     
@@ -34,7 +34,7 @@ https://github.com/user-attachments/assets/2c262736-b806-4fea-b276-805098b2d2d5
 </details>
 
 <details>
-<summary><strong>Diagrams</summary>
+<summary>Diagrams</summary>
 <br>
 <a href="https://github.com/anthonycyt/SC1006-Team-49/tree/main/Lab%203%20Deliverables/Sequence%20Diagrams" style="text-decoration: underline;">
     Sequence Diagrams
@@ -55,7 +55,7 @@ https://github.com/user-attachments/assets/2c262736-b806-4fea-b276-805098b2d2d5
 </details>  
 
 <details>
-<summary><strong>Supporting Documents</summary>
+<summary>Supporting Documents</summary>
 <br>
 vid
 </details>
