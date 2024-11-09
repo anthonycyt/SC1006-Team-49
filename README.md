@@ -26,7 +26,9 @@ This project applied software engineering best practices and design patterns in 
 
 <details>
 <summary><strong>Demo Video</summary>
-
+<br>
+Youtube link: https://www.youtube.com/watch?v=qMXj91_hbos
+    
 https://github.com/user-attachments/assets/2c262736-b806-4fea-b276-805098b2d2d5
 
 </details>
@@ -34,8 +36,23 @@ https://github.com/user-attachments/assets/2c262736-b806-4fea-b276-805098b2d2d5
 <details>
 <summary><strong>Diagrams</summary>
 <br>
-vid
-</details>
+<a href="https://github.com/anthonycyt/SC1006-Team-49/tree/main/Lab%203%20Deliverables/Sequence%20Diagrams" style="text-decoration: underline;">
+    Sequence Diagrams
+</a><br>
+<a href="https://github.com/anthonycyt/SC1006-Team-49/tree/main/Lab%203%20Deliverables" style="text-decoration: underline;">
+    Class Diagram
+</a><br>
+<a href="https://github.com/anthonycyt/SC1006-Team-49/tree/main/Lab%203%20Deliverables" style="text-decoration: underline;">
+    Complete System Architecture
+</a><br>
+<a href="https://github.com/anthonycyt/SC1006-Team-49/tree/main/Lab%203%20Deliverables" style="text-decoration: underline;">
+    Use Case Model
+</a><br>
+<a href="https://github.com/anthonycyt/SC1006-Team-49/tree/main/Lab%203%20Deliverables" style="text-decoration: underline;">
+    Dialog Map
+</a><br>
+
+</details>  
 
 <details>
 <summary><strong>Supporting Documents</summary>
