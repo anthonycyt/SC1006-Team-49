@@ -29,10 +29,10 @@ This project applied software engineering best practices and design patterns in 
     <br />
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=qMXj91_hbos" target="_blank">
-    <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
-        <img src="http://img.youtube.com/vi/qMXj91_hbos/0.jpg" alt="2006 DEMO VIDEO" style="width: 280px; height: 100%; object-fit: cover; border-radius: 10px;" />
-    </div>
+    <img src="http://img.youtube.com/vi/qMXj91_hbos/0.jpg" alt="2006 DEMO VIDEO" 
+        style="width: 320px; height: 180px; object-fit: cover; border-radius: 10px;" />
 </a>
+
 
 </details>
 
