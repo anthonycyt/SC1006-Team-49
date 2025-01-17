@@ -43,23 +43,23 @@ https://github.com/user-attachments/assets/f2618c64-f73e-4910-a492-1dffd1a67084
 <details>
 <summary>Diagrams</summary>
 <br>
-<a href="https://github.com/softwarelab3/2006-TDDB-49/tree/main/Lab%205%20Deliverables/Supporting%20Documents%20and%20Diagrams/Sequence%20Diagrams" style="text-decoration: underline;">
+<a href="https://github.com/anthonycyt/SC1006-Team-49/tree/main/Lab%205%20Deliverables/Supporting%20Documents%20and%20Diagrams/Sequence%20Diagrams" style="text-decoration: underline;">
     Sequence Diagrams 
 </a>
     <br><br>
-<a href="https://github.com/softwarelab3/2006-TDDB-49/blob/main/Lab%205%20Deliverables/Supporting%20Documents%20and%20Diagrams/Class%20Diagram.pdf" style="text-decoration: underline;">
+<a href="https://github.com/anthonycyt/SC1006-Team-49/blob/main/Lab%205%20Deliverables/Supporting%20Documents%20and%20Diagrams/Class%20Diagram.pdf" style="text-decoration: underline;">
     Class Diagram
 </a>
     <br><br>
-<a href="https://github.com/softwarelab3/2006-TDDB-49/blob/main/Lab%205%20Deliverables/Supporting%20Documents%20and%20Diagrams/System%20Architecture.pdf" style="text-decoration: underline;">
+<a href="https://github.com/anthonycyt/SC1006-Team-49/blob/main/Lab%205%20Deliverables/Supporting%20Documents%20and%20Diagrams/System%20Architecture.pdf" style="text-decoration: underline;">
     Complete System Architecture
 </a>
     <br><br>
-<a href="https://github.com/softwarelab3/2006-TDDB-49/blob/main/Lab%205%20Deliverables/Supporting%20Documents%20and%20Diagrams/Complete%20Use%20Case%20Diagram%20.png" style="text-decoration: underline;">
+<a href="https://github.com/anthonycyt/SC1006-Team-49/blob/main/Lab%205%20Deliverables/Supporting%20Documents%20and%20Diagrams/Complete%20Use%20Case%20Diagram%20.png" style="text-decoration: underline;">
     Complete Use Case Diagram
 </a>
     <br><br>
-<a href="https://github.com/softwarelab3/2006-TDDB-49/tree/main/Lab%205%20Deliverables/Supporting%20Documents%20and%20Diagrams/Dialog%20Maps" style="text-decoration: underline;">
+<a href="https://github.com/anthonycyt/SC1006-Team-49/tree/main/Lab%205%20Deliverables/Supporting%20Documents%20and%20Diagrams/Dialog%20Maps" style="text-decoration: underline;">
     Dialog Maps
 </a><br>
 </details>  
@@ -67,17 +67,17 @@ https://github.com/user-attachments/assets/f2618c64-f73e-4910-a492-1dffd1a67084
 <details>
 <summary>Supporting Documents</summary>
     <br>
-<a href="https://github.com/softwarelab3/2006-TDDB-49/blob/main/Lab%205%20Deliverables/Complete%20Use%20Case%20Description%20(Ver%202.2).doc" style="text-decoration: underline;">
+<a href="https://github.com/anthonycyt/SC1006-Team-49/blob/main/Lab%205%20Deliverables/Supporting%20Documents%20and%20Diagrams/Complete%20Use%20Case%20Description%20(Ver%202.2).doc" style="text-decoration: underline;">
     Use Case Description
 </a><br><br>
-<a href="#" style="text-decoration: underline;">
+<a href="https://github.com/anthonycyt/SC1006-Team-49/blob/main/Lab%205%20Deliverables/Supporting%20Documents%20and%20Diagrams/NTUFoodie_TDDB_Team%2049_SRS.pdf" style="text-decoration: underline;">
     SRS Document
 </a><br><br>
-<a href="https://github.com/softwarelab3/2006-TDDB-49/blob/main/Lab%205%20Deliverables/Supporting%20Documents%20and%20Diagrams/NTUFoodie%20UI%20Mockup.pdf" style="text-decoration: underline;">
+<a href="https://github.com/anthonycyt/SC1006-Team-49/blob/main/Lab%205%20Deliverables/Supporting%20Documents%20and%20Diagrams/NTUFoodie%20UI%20Mockup.pdf" style="text-decoration: underline;">
     UI Mockup
 </a><br>
     <br>
-<a href="https://github.com/softwarelab3/2006-TDDB-49/blob/main/Lab%205%20Deliverables/SC2006%20Demo%20Video.mov" style="text-decoration: underline;">
+<a href="https://github.com/anthonycyt/SC1006-Team-49/blob/main/Lab%205%20Deliverables/SC2006%20Demo%20Video.mov" style="text-decoration: underline;">
     Demo Video(Compressed)
 </a><br>
 </details>
@@ -136,7 +136,7 @@ https://github.com/user-attachments/assets/f2618c64-f73e-4910-a492-1dffd1a67084
 ## Overview of the System
 <br />
 <div align="center">
-    <img width="50%" alt="Complete System Archi" src="https://github.com/anthonycyt/SC1006-Team-49/blob/main/README%20PIC/Complete%20System%20Architecture%20%20(1).png">
+    <img width="50%" alt="Complete System Archi" src="https://github.com/anthonycyt/SC1006-Team-49/blob/main/Lab%205%20Deliverables/Supporting%20Documents%20and%20Diagrams/System%20Architecture.pdf">
 </div>
 <br />
 
