@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .review-form {
+      background-color: #fff;
+      padding: 30px;
+      margin-top: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group label {
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+
+    .btn-primary:hover {
+      background-color: #c82333;
+      border-color: #bd2130;
+    }
+
+    .form-control:focus {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+
+    .file-upload-btn {
+      background-color: #dc3545;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    /* Styles for the range input */
+    .form-group input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 10px;
+      background: #ddd;
+      outline: none;
+      border-radius: 5px;
+    }
+
+    .form-group input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background: #dc3545;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row justify-content-center mt-3">
+      <div class="col-md-8">
+        <div class="back-button mb-3">
+          <a href="{% url 'foodDetail' food.id %}" onclick="history.back()" class="btn btn-link">
+            <i class="fas fa-arrow-left"></i> Back
+          </a>
+        </div>
+        <div class="review-form">
+          <h3>Thanks for coming!</h3>
+          <p>How would you rate the food here?</p>
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="rating">Stars:</label>
+              <div class="rating-display d-flex align-items-center"> 
+                <select class="form-control" id="rating" name="rating" style="width: 60px;"> <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4" selected>4</option>
+                  <option value="5">5</option>
+                </select>
+                <i class="fas fa-star text-warning ml-2"></i> 
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="store">Store:</label>
+                <input type="text" class="form-control" id="store" name="store" value="{{food.store.storeName}}" readonly>
+            </div>
+            <div class="form-group">
+              <label for="food">What did you have?</label>
+              <input type="text" class="form-control" id="foodName" name="foodName" value="{{food.foodName}}" readonly>
+            </div>
+            <div class="form-group">
+              <label for="price">Price:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">SGD</span>
+                </div>
+                <input type="text" class="form-control" id="price" name="price" value="{{food.price}}" readonly>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description">Description:</label>
+              {{ form.description }}
+            </div>
+            <div class="form-group">
+              <label for="profile_pic">Picture (Optional):</label>
+              {{ form.image }}
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Submit Review</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ratingInput = document.getElementById('rating');
+    const ratingValue = document.getElementById('ratingValue');
+
+    ratingInput.addEventListener('input', () => {
+      ratingValue.textContent = ratingInput.value;
+    });
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

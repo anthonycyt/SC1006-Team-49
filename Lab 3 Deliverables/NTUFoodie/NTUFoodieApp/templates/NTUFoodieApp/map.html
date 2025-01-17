@@ -1,0 +1,195 @@
+{% extends "NTUFoodieApp/ccommon.html" %}
+
+{% block content %}
+
+<div id="map"></div>
+
+<!-- Include Mapbox GL JS and CSS -->
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+
+<!-- Include Mapbox Directions CSS and JS -->
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.css" type="text/css"/>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.js"></script>
+
+<style>
+    #map {
+        height: 800px;
+        width: 100%;
+    }
+    .popup-card {
+        width: 200px;
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    .popup-card img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+    .popup-card h3 {
+        font-size: 16px;
+        font-weight: bold;
+        color: #181C62;
+        margin: 0;
+    }
+    .popup-card p {
+        font-size: 14px;
+        color: #555;
+        margin: 5px 0;
+    }
+    .popup-card button {
+        margin-top: 5px;
+        padding: 5px 10px;
+        background-color: #28a745; /* Green color for "Get Directions" */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+    }
+    .popup-card a {
+        display: block;
+        margin-top: 5px;
+        padding: 5px 10px;
+        background-color: #007bff; /* Blue color for "View Canteen" */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        cursor: pointer;
+        width: 100%;
+    }
+    .close-directions {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #dc3545;
+        color: white;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        z-index: 1;
+    }
+    .directions-panel.collapsed {
+        display: none;
+    }
+</style>
+
+<script>
+    var mapboxAccessToken = '{{ mapboxToken }}';
+
+    mapboxgl.accessToken = mapboxAccessToken;
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [103.6831, 1.3483], // NTU coordinates [lng, lat]
+        zoom: 15.5
+    });
+
+    // Disable map rotation using right click + drag
+    map.dragRotate.disable();
+
+    // Disable map rotation using touch rotation gesture
+    map.touchZoomRotate.disableRotation();
+
+    // Disable double click zoom
+    map.doubleClickZoom.disable();
+
+    // Disable map zoom when using two fingers
+    map.touchZoomRotate.disable();
+
+    // Remove map pitch (tilt)
+    map.setPitch(0);
+
+    map.addControl(new mapboxgl.NavigationControl({ showCompass: false }));
+
+    var geolocateControl = new mapboxgl.GeolocateControl({
+        positionOptions: { enableHighAccuracy: true },
+        trackUserLocation: true,
+        showAccuracyCircle: true,
+        showUserHeading: true
+    });
+    map.addControl(geolocateControl);
+
+    var directions = new MapboxDirections({
+        accessToken: mapboxgl.accessToken,
+        unit: 'metric',
+        profile: 'mapbox/walking',
+        controls: { inputs: false, instructions: true, profileSwitcher: false },
+        interactive: false,
+    });
+    map.addControl(directions, 'top-left');
+
+    var canteensData = {{ canteens_data_json|safe }};
+    var userLocation = null;
+
+    // Track the user location when geolocation is available
+    geolocateControl.on('geolocate', function(event) {
+        userLocation = [event.coords.longitude, event.coords.latitude];
+        directions.setOrigin(userLocation);
+    });
+
+    // Prompt user for geolocation access on map load
+    map.on('load', function() {
+        geolocateControl.trigger();
+    });
+
+    // Disable setting destination or origin by clicking on the map
+    map.on('click', function(e) {
+        // Do nothing on map click
+        e.preventDefault();
+    });
+
+    // Function to set destination in directions when marker is clicked
+    function setDestination(coords) {
+        if (userLocation) {
+            directions.setDestination(coords);
+            document.getElementById('close-directions').style.display = 'block';
+        } else {
+            alert("Please allow location access to set your starting point.");
+            geolocateControl.trigger();
+        }
+    }
+
+    // Add markers and popups
+    canteensData.forEach(function(canteen) {
+        var popupContent = `
+            <div class="popup-card">
+                <img src="${canteen.canteenPic}" alt="${canteen.name} Image">
+                <h3>${canteen.name}</h3>
+                <p>${canteen.address}</p>
+                <button onclick="setDestination([${canteen.longitude}, ${canteen.latitude}])">Get Directions</button>
+                <a href="/consumer/map/canteenDetail/${canteen.id}/">View Canteen</a>
+            </div>
+        `;
+        
+        var popup = new mapboxgl.Popup({ offset: 25 }).setHTML(popupContent);
+        
+        new mapboxgl.Marker({ color: '#FF0000' })  // Red color marker
+            .setLngLat([canteen.longitude, canteen.latitude])
+            .setPopup(popup)
+            .addTo(map);
+    });
+
+    // Add close button for directions
+    var closeButton = document.createElement('div');
+    closeButton.id = 'close-directions';
+    closeButton.className = 'close-directions';
+    closeButton.style.display = 'none';
+    closeButton.innerText = 'Close Directions';
+    closeButton.onclick = function() {
+        directions.removeRoutes();
+        closeButton.style.display = 'none';
+    };
+    map.getContainer().appendChild(closeButton);
+
+    // Hide the default Mapbox Directions inputs
+    var directionsInputs = document.querySelector('.mapbox-directions-origin, .mapbox-directions-destination');
+    if (directionsInputs) {
+        directionsInputs.style.display = 'none';
+    }
+</script>
+
+{% endblock %}

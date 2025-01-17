@@ -1,0 +1,258 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="icon" type="image/png" href="{% static 'images/logo.jpeg' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Inter', sans-serif !important;
+    }
+
+    .signup-form {
+      font-family: "Inter", sans-serif;
+      background-color: #fff;
+      padding: 30px;
+      margin-top: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .signup-form h2{
+      font-weight: 600;
+    }
+
+    .signup-form p{
+      font-weight: 4--;
+    }
+
+    .form-group label {
+      font-family: "Inter", sans-serif;
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    .btn-primary {
+      font-family: "Inter", sans-serif;
+      font-weight: 500;
+      margin-top: 3rem;
+      border-radius: 2rem;
+      padding: 1rem 2rem;
+      background-color: #D63531;
+      border-color: #D63531;
+    }
+
+    .btn-primary:hover {
+      background-color: #9e0a2c;
+      border-color: #9e0a2c;
+    }
+
+    /* Removed .form-control:focus */
+    .input-group-text {
+      background-color: #D63531;
+      border-color: #D63531;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Removed .input-group .form-control */
+    /* New styles for the desired look */
+    .form-group input {
+      border: none;
+      border-bottom: 1px solid #ced4da; /* Keeping the bottom border */
+      border-radius: 0; /* Remove rounding */
+      padding: 5px 0; /* Padding can be adjusted as needed */
+      box-shadow: none; /* No shadow */
+      width: 100%; /* Ensure it takes full width */
+    }
+
+    .form-group input:focus {
+      border-color: #D63531; /* Change border color on focus */
+      box-shadow: none; /* Remove shadow */
+    }
+
+    .alert {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    padding: 20px 20px; /* Padding for more space */
+    font-size: 16px; /* Adjust font size */
+}
+
+    .input-group-append {
+      height: 100%;
+      margin-left: -1px;
+    }
+
+    .input-group-text {
+      border-bottom: 1px solid #ced4da;
+      border-radius: 0;
+    }
+
+    /* Added styles for the eye icon */
+    .password-icon {
+        position: relative;
+    }
+
+    .password-icon input {
+        padding-right: 40px; /* Add space for the icon */
+    }
+
+    .password-icon .fa-eye {
+        position: absolute;
+        top: 70%;
+        right: 10px; /* Position it away from the right edge */
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #999;
+        z-index: 1; /* Ensure the icon is on top */
+    }
+
+    /* Nicer input field styles */
+    .form-control {
+      width: 100%; /* Ensure the input takes the full width */
+      padding: 10px; /* Add padding */
+      border-radius: 5px; /* Adjust as necessary */
+      border: 1px solid #ced4da; /* Border color */
+    }
+
+    .form-control:focus {
+      border-color: #D63531;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+
+    /* Styles for select tags */
+    .form-control {
+      padding: 0.375rem 0.75rem;
+      /* Adjust padding for better spacing */
+    }
+
+    .text-center {
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-6">
+        <div class="back-button mb-3">
+          <a href="{% url 'defaultHome' %}" class="btn btn-link">
+            <i class="fas fa-arrow-left"></i> Back to Home Page
+          </a>
+        </div>
+        <div class="signup-form">
+          <h2>Sign up</h2>
+          <p>Create an account to get started</p>
+          <form method="POST" action="">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter your first name" required>
+          </div>
+          <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter your last name" required>
+          </div>
+          <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required> <!-- Added class -->
+          </div>
+          <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" class="form-control" id="email" name="email" placeholder="Ex.jack123@gmail.com" required> <!-- Added class -->
+          </div>
+          <div class="form-group password-icon">
+              <label for="password1">Password</label>
+              <input type="password" class="form-control" id="password1" name="password1" placeholder="Enter your password" required> <!-- Added class -->
+              <i class="fas fa-eye" onclick="togglePasswordVisibility('password1')"></i>
+          </div>
+          <div class="form-group password-icon">
+              <label for="password2">Confirm Password</label>
+              <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm your password" required> <!-- Added class -->
+              <i class="fas fa-eye" onclick="togglePasswordVisibility('password2')"></i>
+          </div>
+            <div class="form-group">
+              <label for="role">Role</label>
+              <select name="role" id="role" class="form-control" required>
+                <option value="consumer">Consumer</option>
+                <option value="storeowner">Store Owner</option>
+              </select>
+            </div>
+            <div id="extraFields"></div>
+            <button type="submit" class="btn btn-primary btn-block"> Sign Up</button>
+          </form>
+          <br>
+          {%if form.errors%}
+          <div class="alert alert-danger">
+            <ul>
+              {% for field, errors in form.errors.items %}
+              {% for error in errors %}
+              <li> {{field}}: {{error}} </li>
+              {% endfor %}
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+          <div class="text-center mt-3">
+            <p>Already have an account? <a href="{%   url 'login' %}" style="color: #dc3545;">Login</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function togglePasswordVisibility(fieldId) {
+      var passwordField = document.getElementById(fieldId);
+      if (passwordField.type === "password") {
+        passwordField.type = "text";
+      } else {
+        passwordField.type = "password";
+      }
+    }
+
+    const roleSelect = document.getElementById('role');
+    const extraFields = document.getElementById('extraFields');
+
+    roleSelect.addEventListener('change', () => {
+      if (roleSelect.value === 'storeowner') {
+        // Create a temporary container to hold the generated HTML
+        const tempContainer = document.createElement('div');
+        tempContainer.innerHTML = `
+                    <div class="form-group">
+                        <label for="canteenName">Canteen Name</label>
+                        <select class="form-control" id="canteenName" name="canteenName" required> 
+                            {% for canteen in canteens %}
+                                <option value="{{ canteen.location.canteenName }}">{{ canteen.location.canteenName }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="storeName">Store Name</label>
+                        <input type="text" class="form-control" id="storeName" name="storeName" placeholder="Enter store name" required>
+                    </div>
+                `;
+
+        // Get the elements from the temporary container
+        const canteenSelect = tempContainer.querySelector('#canteenName');
+        const storeNameInput = tempContainer.querySelector('#storeName');
+
+        // Append the elements to the extraFields div
+        extraFields.innerHTML = ''; // Clear any existing content
+        extraFields.appendChild(canteenSelect.parentNode); // Append the select with its parent (the form-group)
+        extraFields.appendChild(storeNameInput.parentNode); // Append the input with its parent (the form-group)
+      } else {
+        extraFields.innerHTML = ''; // Remove the fields
+      }
+    });
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist"></script>

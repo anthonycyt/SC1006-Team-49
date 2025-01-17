@@ -1,0 +1,161 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Results</title>
+    <link rel="icon" type="image/png" href="{% static 'images/logo.jpeg' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
+          integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+body{
+    font-family: 'Inter', sans-serif !important;
+}
+
+.container{
+    font-family: 'Inter',sans-serif;
+}   
+
+.container h2 {
+    font-weight: 700;
+    font-size: 2.2rem;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: #ffffff; /* Keep it white for even rows */
+}
+
+.table tbody tr {
+  transition: background-color 0.3s ease;
+}
+
+.table tbody tr:hover {
+    cursor: pointer;
+    background-color: #b4b4b4 !important; /* Change the hover color if needed */
+}
+
+.table td {
+    padding: 1rem;
+    text-align: left;
+    position: relative;
+}
+
+.table img {
+    width: 200px; /* Match image width in food listings */
+    height: 125px; /* Match image height in food listings */
+    object-fit: cover; /* Maintain aspect ratio and cover the area */
+    border-radius: 0.8rem; /* Match the rounded corners */
+}
+
+/* Additional styles for text and ratings */
+.rating {
+    color: #e9b408; /* Yellow color for rating text */
+    font-weight: bold; /* Optional: Make the rating bold */
+}
+
+/* Optional: Center text for empty state */
+.text-center {
+    text-align: center;
+}
+
+/* Table border styling */
+.table td::after {
+    content: '';
+    position: absolute;
+    top: 10%; 
+    bottom: 10%; 
+    right: 0;
+    width: 2px; 
+    background-color: #dadada; 
+}
+
+.table td:first-child::after {
+    right: 0; 
+    left: auto;
+}
+
+.table td:last-child::after {
+    display: none;
+}
+        .details-cell {
+            white-space: pre-line; /* Preserves line breaks and spaces */
+        }
+        .price-original {
+            text-decoration: line-through;
+            color: #888;
+        }
+        .price-discounted {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="back-button mb-3"> 
+        <a href="#" onclick="window.location.href='{% url 'food' %}'" class="btn btn-link">
+          <i class="fas fa-arrow-left"></i> Back
+        </a>
+    </div>
+
+    <h2 class="my-3">Search Results</h2> 
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for food in filteredFood %} 
+            <tr onclick="window.location.href='{% url 'foodDetail' food.id %}'"> 
+                <td>                
+                {% if food.image %}
+                    <img src="{{ food.image.url }}" style="width: 200px; height: 125px;">
+                {% else %}
+                    <img src="{% static 'images/comingsoon.jpg'%}" style="width: 200px; height: 125px;">  <!-- Default image if none exists -->
+                {% endif %}
+            </td> 
+
+                <td>{{ food.foodName }}</td>
+                <td>
+                    {% if food.rating %}
+                    <label>Rating:</label> {{ food.rating|floatformat:1 }} <i class="fas fa-star text-warning"></i> 
+                    {% else %}
+                    <label>Rating:</label>  NA
+                    {% endif %}
+                    <br> {{ food.type }}
+                    <br> {{ food.cuisine }}
+                    <br>
+                    <!-- Conditional Price Display -->
+                    {% if food.isDiscounted and food.discountedPrice %}
+                        <span class="price-original">SGD {{ food.price|floatformat:2 }}</span>
+                        <span class="price-discounted" style="color: red; font-weight: bold;">SGD {{ food.discountedPrice|floatformat:2 }}</span>
+                    {% else %}
+                        SGD {{ food.price|floatformat:2 }}
+                    {% endif %}
+                    <br> {{ food.description }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

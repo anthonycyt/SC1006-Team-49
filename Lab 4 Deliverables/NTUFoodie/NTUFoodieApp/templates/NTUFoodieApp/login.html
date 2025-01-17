@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="icon" type="image/png" href="{% static 'images/logo.jpeg' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Inter', sans-serif !important;
+        }
+
+        .login-form {
+            background-color: #fff;
+            padding: 30px; /* Adjusted padding */
+            margin-top: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-form h2 {
+            font-weight: 600;
+            padding-bottom: 1rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        .form-group input {
+            border: none;
+            border-bottom: 1px solid #ced4da; /* Keeping the bottom border */
+            border-radius: 0; /* Remove rounding */
+            padding: 5px 0; /* Padding can be adjusted */
+            width: 100%; /* Ensure it takes full width */
+        }
+
+        .form-group input:focus {
+            border-color: #D63531; /* Change border color on focus */
+            box-shadow: none; /* Remove shadow */
+        }
+
+        .btn-primary {
+            font-family: "Inter", sans-serif;
+            font-weight: 500;
+            border-radius: 2rem;
+            padding: 1rem 1rem;
+            background-color: #D63531;
+            border-color: #D63531;
+            margin-bottom: 1rem;
+            margin-top: 2.3rem !important;
+        }
+
+        .btn-primary:hover {
+            background-color: #9e0a2c;
+            border-color: #9e0a2c;
+        }
+
+        .divider {
+            border-bottom: 1px solid #ced4da;
+            margin: 20px 0;
+        }
+
+        .social-login a {
+            display: flex; /* Flexbox for alignment */
+            align-items: center; /* Center items vertically */
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #333;
+            transition: background-color 0.3s ease; /* Smooth transition */
+        }
+
+        .social-login a:hover {
+            background-color: #f5f5f5; /* Hover effect */
+        }
+
+        .social-login i {
+            margin-right: 10px; /* Space between icon and text */
+            font-size: 1.2rem; /* Slightly larger icon */
+        }
+
+        /* Added styles for the eye icon */
+        .password-icon {
+        position: relative;
+        }
+
+        .password-icon input {
+            padding-right: 40px; /* Add space for the icon */
+        }
+
+        .password-icon .fa-eye {
+            position: absolute;
+            top: 70%;
+            right: 10px; /* Position it away from the right edge */
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #999;
+            z-index: 1; /* Ensure the icon is on top */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="back-button mb-3">
+                    <a href="{% url 'defaultHome' %}" class="btn btn-link"> 
+                        <i class="fas fa-arrow-left"></i> Back to Home Page
+                    </a>
+                </div>
+                <div class="login-form">
+                    <h2>Welcome to NTUFOODIE!</h2>
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Your Username" required>
+                        </div>
+                        <div class="form-group password-icon">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                            <i class="fas fa-eye" onclick="togglePasswordVisibility('password')"></i>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block mt-3">Login</button>
+                
+                        {% if messages %}
+                            {% for message in messages %}
+                                {% if message.tags == 'error' %}
+                                    <div class="alert alert-danger"> 
+                                        <p>{{ message }}</p>
+                                    </div>
+                                {% else %}
+                                    <div class="alert alert-success">
+                                        <p>{{ message }}</p> 
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                
+                        <p class="text-center mt-3">
+                            Not a member? <a href="{% url 'register' %}" class="text-danger">Register now</a>
+                        </p>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function togglePasswordVisibility(fieldId) {
+            var passwordField = document.getElementById(fieldId);
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

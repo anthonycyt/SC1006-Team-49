@@ -1,0 +1,323 @@
+{% load static %} <!-- let django knows how to reference static files -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NTUFoodie</title>
+    <link rel="icon" type="image/png" href="{% static 'images/logo.jpeg' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+body{
+    font-family: 'Inter', sans-serif !important;
+}
+
+
+.navbar {
+        height: 8rem; 
+        padding-top: 0.5rem;  
+        background-color: #181C62;  
+        display: flex; 
+    }
+
+    .navbar-nav {
+      flex-direction: column; /* Stack items vertically when collapsed */
+      align-items: flex-start; /* Align items to the left */
+    }
+
+    .nav-item {
+        margin: 0 15px; 
+    }
+
+    nav.navbar .nav-link {
+        color: white; /* Text color */
+        font-family: "Inter", sans-serif; /* Font style */
+        padding: 0.5rem 1rem; /* Padding */
+        font-weight: 300; /* Font weight */
+        font-size: 1rem; /* Font size */
+        line-height: 3rem; /* Align links with the navbar height */
+    }
+
+    nav.navbar a.nav-link:hover {
+        color: #ffffff; /* Hover color */
+        text-decoration: underline; /* Hover effect */
+    }
+
+    .nav-item.active .nav-link {
+        font-family: "Inter", sans-serif;
+        font-weight: bold; 
+        color: #ff2323;  
+        font-size: 1.5rem; /* Keep same font size for alignment */
+        line-height: 3rem; /* Align active link with the navbar height */
+    }
+
+    .navbar-collapse {
+        background-color: #181C62; /* Set background color */
+        border-radius: 0.5rem; /* Optional: round corners */
+        z-index: 1000; /* Ensure it appears in front of other elements */
+    }
+.hero { 
+    color: white;
+    text-align: center;
+    background-image: url('/static/images/home2.png'); 
+    background-size: cover;
+    background-position: center;
+    background-color: #242424;
+    padding: 10rem 0;
+}
+
+.hero h1 {
+    color: white;
+    font-family: "Inter", sans-serif;
+    font-weight: 900;
+    font-size: 5rem; 
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-family: "Inter", sans-serif;
+    font-weight: 300;
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+}
+
+.hero .btn-primary {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    background-color: #D63531;
+    border-color: #D63531;
+}
+
+.hero .btn-primary:hover {
+    background-color: #9e0a2c;
+    border-color: #9e0a2c;
+}
+
+.features {
+    background-color: #f9f9f9;
+    text-align: center;
+    padding-top: 60px;
+}
+
+.feature-icon {
+    font-size: 4.5rem;
+    transition: transform 0.3s ease;
+    color: #D63531;
+    margin-bottom: 15px;
+}
+
+.feature-icon:hover {
+    transform: scale(1.1);
+}
+
+.features h3 {
+    font-size: 1.5rem;
+    margin-top: 20px;
+}
+
+.features p {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.testimonials {
+    background-color: #f9f9f9;
+    padding: 40px 0;
+}
+
+.testimonial {
+    border: none;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.testimonials h2 {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    padding-bottom: 15px;
+    text-align: center; 
+}
+
+.testimonial p {
+    font-family: "Inter", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 1.1rem;
+    color: #444;
+    margin-bottom: 0;
+}
+
+.testimonial strong {
+    font-weight: bold;
+    color: #D63531;
+}
+
+.testimonial:before {
+    content: "\201C";
+    font-size: 3rem;
+    color: #D63531;
+    position: absolute;
+    top: -30px;
+    left: 20px;
+}
+
+.cta {
+    background-color: #181C62;
+    color: white;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.cta h2 {
+    font-family: "Inter", sans-serif;
+    font-weight: 900;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.cta p {
+    font-family: "Inter", sans-serif;
+    font-weight: 300;
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+}
+
+.cta .btn-primary {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    background-color: #D63531; /* NTU Red */
+    border-color: #D63531;
+}
+
+.cta .btn-primary:hover {
+    background-color: #9e0a2c;
+    border-color: #9e0a2c;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    font-weight: bold;
+    color: #181C62;
+}
+
+.btn-primary {
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+}
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #181C62;">
+        <div class="container">
+          <a href="{% url 'defaultHome' %}"> 
+            <img src="{% static '/images/ntufoods.png' %}" width="100px" height="100px">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto"> 
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a> 
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'register' %}">Register</a> 
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    <div class="hero">
+        <div class="container">
+            <h1>NTUFoodie</h1>
+            <p>Your guide to the best budget food on NTU campus while also saving 
+              the world one meal at a time.</p>
+            <a href="{% url 'register' %}" class="btn btn-primary btn-lg">Start Exploring</a>
+        </div>
+    </div>
+
+    <div class="features">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <i class="fas fa-search feature-icon"></i>
+                    <h3>Search for Food</h3>
+                    <p>Find your favorite dishes or discover new ones.</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="fas fa-map-marker-alt feature-icon"></i>
+                    <h3>Locate Food Stalls</h3>
+                    <p>See where the food stalls are located on campus.</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="fas fa-star feature-icon"></i>
+                    <h3>Rate and Review</h3>
+                    <p>Share your experiences and help others find great food.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="testimonials">
+        <div class="container">
+          <h2 class="text-center mb-4">What Students Are Saying</h2>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="testimonial">
+                <p>"NTUFoodie has made finding good food on campus so much easier! I love the reviews and ratings."</p>
+                <p class="text-right"><strong>- John Doe</strong></p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="testimonial">
+                <p>"I always use NTUFoodie to find new places to eat. It's great for exploring different cuisines."</p>
+                <p class="text-right"><strong>- Jane Smith</strong></p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="testimonial">
+                <p>"The map feature is super helpful! I can easily find the stalls I'm looking for."</p>
+                <p class="text-right"><strong>- David Lee</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="cta">
+        <div class="container">
+          <h2>Hungry?</h2>
+          <p>Find the perfect meal on NTU campus.</p>
+          <a href="{% url 'register' %}" class="btn btn-primary btn-lg">Explore Now</a>
+        </div>
+      </div>
+    
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>   
+    
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>

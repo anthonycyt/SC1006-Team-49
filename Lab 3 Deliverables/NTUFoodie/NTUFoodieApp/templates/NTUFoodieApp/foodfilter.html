@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
+          integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .table thead tr {
+            background-color: #181C62; /* NTU blue */
+            color: white;
+        }
+        .table tbody tr:hover {
+            cursor: pointer;
+        }
+        .details-cell {
+            white-space: pre-line; /* Preserves line breaks and spaces */
+        }
+        .price-original {
+            text-decoration: line-through;
+            color: #888;
+        }
+        .price-discounted {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="back-button mb-3"> 
+        <a href="#" onclick="window.location.href='{% url 'food' %}'" class="btn btn-link">
+          <i class="fas fa-arrow-left"></i> Back
+        </a>
+    </div>
+
+    <h2 class="my-3">Filter Results</h2> 
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for food in filteredFood %} 
+            <tr onclick="window.location.href='{% url 'foodDetail' food.id %}'"> 
+                <td><img src="{{ food.image.url }}" style="width: 200px; height: 125px;"></td> 
+                <td>{{ food.foodName }}</td>
+                <td>
+                    {% if food.rating %}
+                    <label>Rating:</label> {{ food.rating|floatformat:1 }} <i class="fas fa-star text-warning"></i> 
+                    {% else %}
+                    <label>Rating:</label>  NA
+                    {% endif %}
+                    <br> {{ food.type }}
+                    <br> {{ food.cuisine }}
+                    <br>
+                    <!-- Conditional Price Display -->
+                    {% if food.isDiscounted and food.discountedPrice %}
+                        <span class="price-original">SGD {{ food.price|floatformat:2 }}</span>
+                        <span class="price-discounted" style="color: red; font-weight: bold;">SGD {{ food.discountedPrice|floatformat:2 }}</span>
+                    {% else %}
+                        SGD {{ food.price|floatformat:2 }}
+                    {% endif %}
+                    <br> {{ food.description }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

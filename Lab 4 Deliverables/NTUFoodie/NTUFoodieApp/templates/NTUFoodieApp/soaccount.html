@@ -1,0 +1,263 @@
+{% extends "NTUFoodieApp/socommon.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+  body {
+    background-color: #f8f9fa; 
+    font-family: 'Inter', sans-serif !important;
+  }
+
+  .container-fluid .text-center{
+    margin-top: 0.5rem;
+    color: #181C62;
+  }
+
+  .text-center h2 {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 2.5rem;
+    color: #181C62;
+  }
+
+  .account-section {
+    font-family: "Inter", sans-serif; /* Font family for consistency */
+    background-color: #fff;
+    padding: 30px; /* Adjusted padding for consistency */
+    margin-top: 2.5rem; /* Match spacing */
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .account-section h3 {
+    font-weight: 700; /* Match heading style */
+    color: #181C62; /* Consistent heading color */
+    padding-bottom: 1rem;
+  }
+
+  .account-section label{
+    font-weight: 550;
+    color: #181C62;
+  }
+
+  .profile-pic {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 20px auto;
+    border: 3px solid #181C62;
+  }
+
+  .alert {
+    font-family: "Inter", sans-serif;
+    padding: 10px;
+  }
+
+  .btn-primary {
+    font-size: 1rem;
+    margin-top: 1.3rem;
+    border-radius: 1.7rem;
+    padding: 0.8rem 1.2rem;
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+
+  .btn-primary:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+  }
+
+  .btn-danger {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  color: white;
+  border-radius: 2rem;
+  margin-top: 0.8rem;
+  padding: 1rem 2rem;
+  background-color: #dc3545; /* Change this if you want a different color */
+  border-color: #dc3545; /* Change this if you want a different color */
+}
+
+.btn-danger:hover {
+  background-color: #c82333; /* Change this if you want a different hover color */
+  border-color: #bd2130; /* Change this if you want a different border color on hover */
+}
+
+.review-card {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #f7f7f7;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+  }
+
+  .review-card:hover {
+    background-color: #d7dee6;
+    cursor: pointer;
+  }
+
+  .profile-pic-container {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 10px;
+  }
+  .profile-pic-container img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #181C62;
+    margin-bottom: 10px;
+    transition: transform 0.3s;
+  }
+  .profile-pic-container img:hover {
+    transform: scale(1.1);
+  }
+  .profile-info {
+    text-align: center;
+  }
+  .profile-info p {
+    margin: 0;
+    font-weight: bold;
+    font-size: 1em;
+    color: #181C62;
+  }
+  .profile-info .rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8em;
+  }
+
+  .review-text {
+    flex: 2;
+    text-align: left;
+    align-self: flex-start;
+  }
+  .review-text .review-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 1.4rem; /* Adjust the size as needed */
+    text-decoration: underline;
+    color: #181C62;
+    padding-top: 0;
+    padding-left: 10px;
+    margin-bottom: 5px;
+}
+  .review-description {
+    padding: 10px;
+    border-radius: 5px;
+    color: #333;
+    background-color: none;
+  }
+
+  .review-image {
+    max-width: 190px;
+    max-height: 150px;
+    border-radius: 8px;
+    border: 2px solid #181C62;
+    padding: 4px; /* Optional padding to space the image inside */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+}
+
+.review-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px; /* Slightly smaller radius for image */
+}
+
+.alert-success {
+    background-color: #d4edda; /* Light green background */
+    color: #155724; /* Dark green text */
+    border: 1px solid #c3e6cb; /* Border color */
+    border-radius: 1rem; /* Rounded corners */
+    margin-top: 0.4rem;
+    padding-left: 1.3rem;
+    display: flex; /* Flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    text-align: center; /* Center text within the alert */
+}
+
+.alert-success p {
+    margin: 0; /* Remove default paragraph margin */
+}
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" 
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="text-center">
+        {% if storeowner.profilePic %}
+          <img src="{{ storeowner.profilePic.url }}" alt="Profile Picture" class="profile-pic">
+        {% else %}
+          <img src="{% static 'images/default_profile.png' %}" alt="Default Profile Picture" class="profile-pic">
+        {% endif %}
+        <h2>{{ storeowner.firstName }} {{ storeowner.lastName }}</h2>
+      </div>
+
+      <div class="account-section">
+        <h3>Update Profile</h3>
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="first_name">First Name</label>
+            {{ form.firstName }}
+          </div>
+          <div class="form-group">
+            <label for="last_name">Last Name</label>
+            {{ form.lastName }}
+          </div>
+          <div class="form-group">
+            <label for="email">Store Name</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ storeowner.store }}" disabled>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ storeowner.email }}" disabled>
+          </div>
+          <div class="form-group">
+            <label for="profile_pic">Profile Picture</label>
+            {{ form.profilePic }}
+          </div>
+          <button type="submit" class="btn btn-primary">Update Profile</button>
+        </form>
+      </div>
+
+      {% if messages %}
+      {% for message in messages %}
+        {% if message.tags == 'error' %}
+          <div class="alert alert-danger">
+            <p>{{ message }}</p>
+          </div>
+        {% else %}
+          <div class="alert alert-success">
+            <p>{{ message }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+      <div class="text-center mt-3">
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}

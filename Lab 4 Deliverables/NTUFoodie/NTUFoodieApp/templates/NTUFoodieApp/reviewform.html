@@ -1,0 +1,208 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review</title>
+  <link rel="icon" type="image/png" href="{% static 'images/logo.jpeg' %}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Inter', sans-serif !important;
+    }
+
+    .review-form {
+      font-family: 'Inter', sans-serif;
+      background-color: #fff;
+      padding: 30px;
+      margin-top: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .review-form h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 600;
+    }
+
+    .review-form p {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+    }
+
+    .btn-primary {
+      font-family: "Inter", sans-serif;
+      font-weight: 500;
+      border-radius: 2rem;
+      padding: 1rem 2rem;
+      background-color: #D63531;
+      border-color: #D63531;
+    }
+
+    .btn-primary:hover {
+      background-color: #9e0a2c;
+      border-color: #9e0a2c;
+    }
+
+    .form-control:focus {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+
+    .file-upload-btn {
+      background-color: #dc3545;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    /* Slider styles */
+    .form-group input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 10px;
+      border-radius: 5px;
+      background: #ddd; /* Default background color */
+      outline: none; /* Remove outline */
+      transition: background 0.3s; /* Smooth transition */
+    }
+
+    .form-group input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background: #dc3545; /* Thumb color */
+      cursor: pointer;
+      border-radius: 50%;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .form-group input[type="range"]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      background: #dc3545;
+      cursor: pointer;
+      border-radius: 50%;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .form-group input[type="range"]::-ms-thumb {
+      width: 20px;
+      height: 20px;
+      background: #dc3545;
+      cursor: pointer;
+      border-radius: 50%;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    }
+
+    textarea {
+      padding: 10px; /* Adjust as needed */
+      border: 1px solid #ced4da; /* Keep the border for consistency */
+      border-radius: 5px; /* Optional: maintain the border radius */
+      width: 100%; /* Ensure it takes the full width */
+    }
+
+    textarea:focus {
+      border-color: #dc3545; /* Change border color on focus */
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25); /* Add shadow on focus */
+      outline: none; /* Remove default outline */
+}
+    
+
+    .rating-display .rating-value {
+      font-weight: bold;
+      color: #dc3545;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row justify-content-center mt-3">
+      <div class="col-md-8">
+        <div class="back-button mb-3">
+          <a href="{% url 'foodDetail' food.id %}" onclick="history.back()" class="btn btn-link">
+            <i class="fas fa-arrow-left"></i> Back
+          </a>
+        </div>
+        <div class="review-form">
+          <h3>Thanks for coming!</h3>
+          <p>How would you rate the food here?</p>
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="rating">Stars:</label>
+              <div class="rating-display d-flex align-items-center">
+                <input type="range" class="form-control-range" id="rating" name="rating" min="1" max="5" value="4" step="1">
+                <span class="rating-value ml-2" id="ratingValue">4</span>
+                <i class="fas fa-star text-warning ml-1"></i>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="store">Store:</label>
+              <input type="text" class="form-control" id="store" name="store" value="{{food.store.storeName}}" readonly>
+            </div>
+            <div class="form-group">
+              <label for="food">What did you have?</label>
+              <input type="text" class="form-control" id="foodName" name="foodName" value="{{food.foodName}}" readonly>
+            </div>
+            <div class="form-group">
+              <label for="price">Price:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">SGD</span>
+                </div>
+                <input type="text" class="form-control" id="price" name="price" value="{{food.price}}" readonly>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description">Description:</label>
+              {{ form.description }}
+            </div>
+            <div class="form-group">
+              <label for="profile_pic">Picture (Optional):</label>
+              {{ form.image }}
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Submit Review</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ratingInput = document.getElementById('rating');
+    const ratingValue = document.getElementById('ratingValue');
+
+    // Function to update the slider background color based on value
+    function updateSliderFill(value) {
+      const percentage = ((value - ratingInput.min) / (ratingInput.max - ratingInput.min)) * 100;
+      ratingInput.style.background = `linear-gradient(to right, #dc3545 ${percentage}%, #ddd ${percentage}%)`;
+    }
+
+    // Update the rating display and fill when the slider is adjusted
+    ratingInput.addEventListener('input', () => {
+      ratingValue.textContent = ratingInput.value;
+      updateSliderFill(ratingInput.value);
+    });
+
+    // Initialize the display and fill on page load
+    ratingValue.textContent = ratingInput.value;
+    updateSliderFill(ratingInput.value);
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

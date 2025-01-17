@@ -1,0 +1,163 @@
+{% extends "NTUFoodieApp/ccommon.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" 
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <form method="get" action="{% url 'searchFood' %}"> 
+                <div class="input-group my-2">
+                    <input type="text" class="form-control" id="searchKey" name="searchKey" placeholder="Search...">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form> 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-right">
+            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#filterModal">
+                Filter
+            </button>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header" style="background-color: #181C62; color: white;">
+                  <h5 class="modal-title" id="filterModalLabel">Filter Options</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true" style="color: white;">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <form method="GET" action="{% url 'filterFood' %}">
+                      <div class="form-group">
+                          <label for="min_price">Min Price:</label>
+                          <input type="number" class="form-control" id="min_price" name="min_price" min="0" oninput="updateMaxPriceMin()">
+                      </div>
+                      <div class="form-group">
+                          <label for="max_price">Max Price:</label>
+                          <input type="number" class="form-control" id="max_price" name="max_price" min="0">
+                      </div>
+                      <div class="form-group">
+                          <label for="type">Type:</label>
+                          <select class="form-control" id="type" name="type">
+                              <option value="">-</option>
+                              {% for type in types %}
+                                  <option value="{{ type }}">{{ type }}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <label for="cuisine">Cuisine:</label>
+                          <select class="form-control" id="cuisine" name="cuisine">
+                              <option value="">-</option>
+                              {% for cuisine in cuisines %}
+                                  <option value="{{ cuisine }}">{{ cuisine }}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+                      <div class="form-group form-check">
+                          <input type="checkbox" class="form-check-input" id="discounted" name="discounted" value="true">
+                          <label class="form-check-label" for="discounted">Show Discounted Food Only</label>
+                      </div>
+                      <button type="submit" class="btn btn-primary" style="background-color: #181C62; border-color: #181C62;">Apply Filter</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+    
+    <h2 class="my-3" style="color: #181C62;">All Listings</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr style="background-color: #181C62; color: white;">
+                <th style="width: 15%;">Image</th>
+                <th style="width: 25%;">Name</th>
+                <th style="width: 60%;">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for food in foods %}
+            <tr onclick="window.location.href='{% url 'foodDetail' food.id %}'">
+                {% if food.image %}
+                <td><img src="{{ food.image.url }}" class="img-fluid" style="max-width: 100%; height: auto;"></td> 
+                {% else %}
+                <td><img src="{% static 'images/comingsoon.jpg'%}" class="card-img-top" alt="Food Image"></td> 
+                {%endif%}
+                <td>{{ food.foodName }}</td>
+                <td>
+                    {% if food.rating %}
+                    <label>Rating:</label> {{ food.rating|floatformat:1 }} <i class="fas fa-star text-warning"></i> 
+                    {% else %}
+                    <label>Rating:</label> NA
+                    {% endif %}
+                    <br> {{ food.type }}
+                    <br> {{ food.cuisine }}
+                    <br>
+                    <!-- Conditional Price Display -->
+                    {% if food.isDiscounted and food.discountedPrice %}
+                        <span class="price-original">SGD {{ food.price|floatformat:2 }}</span>
+                        <span class="price-discounted">SGD {{ food.discountedPrice|floatformat:2 }}</span>
+                    {% else %}
+                        SGD {{ food.price|floatformat:2 }}
+                    {% endif %}
+                    <br> {{ food.description }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .table tbody tr:hover {
+        cursor: pointer;
+    }
+    .input-group-append .btn-outline-secondary {
+        border-color: #181C62;
+        color: #181C62;
+    }
+    .input-group-append .btn-outline-secondary:hover {
+        background-color: #181C62;
+        color: white;
+    }
+    .btn-outline-secondary {
+        border-color: #181C62;
+        color: #181C62;
+    }
+    .btn-outline-secondary:hover {
+        background-color: #181C62;
+        color: white;
+    }
+    .price-original {
+        text-decoration: line-through;
+        color: #888;
+    }
+    .price-discounted {
+        color: red;
+        font-weight: bold;
+    }
+</style>
+
+<script>
+  function updateMaxPriceMin() {
+      const minPrice = document.getElementById("min_price").value;
+      const maxPriceInput = document.getElementById("max_price");
+  
+      // Set the minimum value of max_price to the value of min_price
+      maxPriceInput.min = minPrice;
+  }
+  </script>
+
+{% endblock %}
